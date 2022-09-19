@@ -49,11 +49,12 @@ public class TransactionsController {
 
     @PostMapping("/transaction/add/{accountId}")
     public ResponseEntity<Boolean> addNewTransaction(@PathVariable("accountId") int accountId, @RequestBody Transactions newtran){
-        Boolean added = transactionService.addTransaction(accountId,newtran);
-        return new ResponseEntity<>(added, HttpStatus.CREATED);
+        Transactions a = transactionService.addTransaction(accountId,newtran);
+        if (a != null) {
+            return new ResponseEntity<>(true, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(false, HttpStatus.CREATED);
     }
-
-
 
 
 }
